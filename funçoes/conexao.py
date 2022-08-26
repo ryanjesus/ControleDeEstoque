@@ -15,11 +15,6 @@ class SqlManager:
         self.cursor = self.cnxn.cursor()
         print('Conexão Bem Sucedida')
 
-    def ExecuteS(self):
-        query = 'SELECT * FROM Contas.dbo.Users'
-        self.cursor.execute(query)
-        return self.cursor.fetchall()
-
     def DConnection(self):
         self.cursor.close()
 
