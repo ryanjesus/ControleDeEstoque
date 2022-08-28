@@ -17,13 +17,19 @@ class SqlManager:
 
     def DConnection(self):
         self.cursor.close()
+    
+    # def ExecuteS(self):
+    #     query = 'SELECT * FROM Contas.dbo.estoque'
+    #     self.cursor.execute(query)
+    #     self.db_results = self.cursor.fetchall()
+    #     print(self.db_results)
 
 
-# cs = SqlManager()
-# cs.R_conexao_sql()
-# db_results = cs.ExecuteS()
-# print(db_results)
+#  cs = SqlManager()
+#  cs.R_conexao_sql()
+#  db_results = cs.ExecuteS()
+#  print(db_results)
 
-# cs.DConnection()
+ # cs.DConnection()
 
     
