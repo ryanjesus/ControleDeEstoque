@@ -13,14 +13,15 @@ class Execucao(SqlManager):
     
     def UpdateS(self):
 
-        query = "update dbo.estoque set quatidade = {} where produto = '{}'"
+        query = "update dbo.estoque set quantidade = '0', updateDate = getdate() where id = '1'"
         self.cursor.execute(query)
         self.cnxn.commit()
         
         
 
 cs = Execucao()
-#cs.R_conexao_sql()
+cs.R_conexao_sql()
 cs.ExecuteS()
-#cs.DConnection()
+cs.UpdateS()
+cs.DConnection()
 
