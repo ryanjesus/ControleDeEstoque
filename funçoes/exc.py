@@ -16,6 +16,12 @@ class Execucao(SqlManager):
         query = "update dbo.estoque set quantidade = '0', updateDate = getdate() where id = '1'"
         self.cursor.execute(query)
         self.cnxn.commit()
+    
+    def InsertS(self):
+
+        query = "insert into Contas.dbo.estoque (produto, quantidade, createDate, updateDate) values ('Suco de laranja', 0, getdate(), getdate())"
+        self.cursor.execute(query)
+        self.cnxn.commit
         
         
 
@@ -23,5 +29,6 @@ cs = Execucao()
 cs.R_conexao_sql()
 cs.ExecuteS()
 cs.UpdateS()
+cs.InsertS()
 cs.DConnection()
 
