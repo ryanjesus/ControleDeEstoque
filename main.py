@@ -80,5 +80,3 @@ while True:
             obj.DeleteS(n1)
             print(f'Código {n1} deletado')
             break
-
-#print()

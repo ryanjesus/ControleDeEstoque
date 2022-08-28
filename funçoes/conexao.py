@@ -18,5 +18,3 @@ class SqlManager:
 
     def DConnection(self):
         self.cursor.close()
-
-#print()
