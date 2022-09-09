@@ -13,20 +13,19 @@ class Execucao(SqlManager):
         query = f'SELECT * FROM Contas.dbo.estoque where id = {produto}'
         self.cursor.execute(query)
         self.db_results = self.cursor.fetchall()
-        for row in self.db_results:
-            print(
-                f"id: {row[0]:<3}| Produto: {row[1]:15}| Quantidade: {row[2]:<3}| CreateDate: {row[3]}| UpdateDate: {row[4]}")
         self.DConnection()
+
+        return self.db_results
 
     def ExecuteS(self):
         self.R_conexao_sql()
         query = 'SELECT * FROM Contas.dbo.estoque'
         self.cursor.execute(query)
         self.db_results = self.cursor.fetchall()
-        for row in self.db_results:
-            print(
-                f"id: {row[0]:<3} Produto: {row[1]:<15} Quantidade: {row[2]:<3} CreateDate: {row[3]} UpdateDate: {row[4]}")
         self.DConnection()
+
+        return self.db_results
+
 
     def UpdateS(self, qtd, onde):
         self.R_conexao_sql()
@@ -37,7 +36,7 @@ class Execucao(SqlManager):
 
     def InsertS(self, nome='', qtd=0):
         self.R_conexao_sql()
-        query = f"insert into Contas.dbo.estoque (produto, quantidade, createDate, updateDate) values ('{nome}', {qtd}, getdate(), getdate()) "
+        query = f"insert into Contas.dbo.estoque (name, quantidade, createDate, updateDate) values ('{nome}', {qtd}, getdate(), getdate())"
         self.cursor.execute(query)
         self.cnxn.commit()
         self.DConnection()
