@@ -41,9 +41,9 @@ class Execucao(SqlManager):
         self.cnxn.commit()
         self.DConnection()
 
-    def InsertS(self, nome='', qtd=0):
+    def InsertS(self, nome='', tipo='', qtd=0, uso=0):
         self.R_conexao_sql()
-        query = f"insert into Contas.dbo.estoque (name, quantidade, createDate, updateDate) values ('{nome}', {qtd}, getdate(), getdate())"
+        query = f"insert into Contas.dbo.estoque values ('{nome}', '{tipo}', {qtd}, {uso}, 0, getdate(), getdate())"
         self.cursor.execute(query)
         self.cnxn.commit()
         self.DConnection()

@@ -35,17 +35,15 @@ while True:
 
     if event1 == 'Cadastrar':
         n1 = values1['-NOME-']
-        n2 = values1['-QUANTIDADE-']
+        n2 = values1['-TIPO-'] # Erro: catching classes that do not inherit from BaseException is not allowed
+        n3 = values1['-QUANTIDADE-']
+        n4 = values1['-QUANTIDADEU-']
         try:
             # inserindo dados na tabela
-            obj.InsertS(n1, n2)
+            obj.InsertS(n1, n2, n3, n4)
             sg.popup('Cliente cadastrado com sucesso!')
-            window1['-NOME-'].update('')
-            window1['-QUANTIDADE-'].update('')
-            window1['-TIPO-'].update('')
         except e as Argument:
             print(f'Erro ao gravar os dados:\n{e}')
-            sg.popup(f'{e}')
 
     if event1 == 'Ver Registros' and not window2_active:
         window2_active = True
@@ -70,7 +68,7 @@ while True:
         letra = 'Quantidade:'
         for row in n:
             window2['-ML1-' + sg.WRITE_ONLY_KEY].print(
-                f'Id: {row[0]:<3} Produto: {row[1]:<20} {letra:>10} {row[2]}', text_color='black')
+                f'Id: {row[0]:<3} Produto: {row[1]:<15} Tipo: {row[2]:<15} Estoque: {row[3]:<15} EmUso: {row[4]}', text_color='black')
 
         # Laço da segunda janela
         tipoBusca = True
@@ -120,9 +118,9 @@ while True:
         while True:
             event3, values3 = window3.read()
 
-            if values3["-IN-"] == True:
+            if values3["-IN-"]:
                 atualizar = True
-            if values3["-OUT-"] == True:
+            if values3["-OUT-"]:
                 atualizar = False
 
             if event3 == sg.WIN_CLOSED or event3 == 'Sair':
