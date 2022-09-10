@@ -148,6 +148,7 @@ while True:
                     # atualiza dados na tabela
                     obj.UpdateSub(n1, n2)
                     sg.popup('registro atulizado com sucesso!')
+                    window3['-QUANTIDADET-'].update('')
                 except e as Argument:
                     print(f'Erro ao gravar os dados:\n{e}')
                     sg.popup(f'{e}')
