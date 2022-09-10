@@ -110,7 +110,7 @@ while True:
                     [sg.Radio('Adcionar', 'loss', default=True, size=(10, 1), font=['Comics', 14]),
                     sg.Radio('Retirar', 'loss', size=(5, 1), font=['Comics', 14])],
                     [sg.Text('Quantidade:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADET-')],
-                    [sg.Text('Id:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADE-')],
+                    [sg.Text('Id:', size=(8, 1)), sg.InputText(size=(30, 1), key='-ID-')],
                     [sg.Button('Sair', button_color='black on red', font=['Comics', 12]),
                     sg.Button('Confirma', button_color='black on white', font=['Comics', 12])]]
 
@@ -129,3 +129,25 @@ while True:
                 atualizar = True
             if event2 == 'Retirar':
                 atualizar = False
+
+            if event2 == 'Confirma' and atualizar:
+                n1 = values3['-QUANTIDADET-']
+                n2 = values3['-ID-']
+                try:
+                    # atualiza dados na tabela
+                    obj.UpdateS(n1, n2)
+                    sg.popup('registro atulizado com sucesso!')
+                except e as Argument:
+                    print(f'Erro ao gravar os dados:\n{e}')
+                    sg.popup(f'{e}')
+
+            if event2 == 'Confirma' and not atualizar:
+                n1 = values3['-QUANTIDADET-']
+                n2 = values3['-ID-']
+                try:
+                    # atualiza dados na tabela
+                    obj.UpdateSub(n1, n2)
+                    sg.popup('registro atulizado com sucesso!')
+                except e as Argument:
+                    print(f'Erro ao gravar os dados:\n{e}')
+                    sg.popup(f'{e}')
