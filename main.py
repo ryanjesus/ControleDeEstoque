@@ -9,16 +9,23 @@ e = ''
 sg.theme('Tan Blue')  # Definindo um tema para a janela
 
 # Desingn da janela.
-layout = [[sg.Text('Nome:', size=(6, 1)), sg.InputText(size=(30, 1), key='-NOME-')],
-          [sg.Text('Qtd:', size=(6, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADE-')],
-          [sg.Text('Tipo:', size=(6, 1)), sg.InputText(size=(30, 1), key='-TIPO-')],
+layout = [[sg.Text('Nome:', size=(8, 1)), sg.InputText(size=(30, 1), key='-NOME-')],
+          [sg.Text('Estoque:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADE-')],
+          [sg.Text('Utilizando:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADEU-')],
+          [sg.Text('Tipo:', size=(8, 1)), sg.InputText(size=(30, 1), key='-TIPO-')],
           [sg.Button('Cadastrar', button_color='black on white', font=['Comics', 12]),
            sg.Button('Sair', button_color='black on white', font=['Comics', 12]),
-           sg.Button('Ver Registros', button_color='black on white', font=['Comics', 12]),
+           sg.Button('Atualizar registro', button_color='black on white', font=['Comics', 12])],
+          [sg.Button('Ver Registros', button_color='black on white', font=['Comics', 12]),
            sg.Button('Deletar', button_color='black on white', font=['Comics', 12])]]
 
-window1 = sg.Window('Cadastro de Produto', layout)
+window1 = sg.Window('Cadastro de Produto', layout, size=(600, 600), resizable=True)
 window2_active = False
+window3_active = False
+
+"""
+Primeira condição
+"""
 
 while True:
     event1, values1 = window1.read()
@@ -54,7 +61,7 @@ while True:
                    [sg.MLine(key='-ML1-' + sg.WRITE_ONLY_KEY, size=(80, 15), font='Any 13')],
                    [sg.Button('Sair', button_color='black on red', font=['Comics', 12])]]
 
-        window2 = sg.Window('Ver/Filtrar Registros', layout2, finalize=True)
+        window2 = sg.Window('Ver/Filtrar Registros', layout2, finalize=True, resizable = True)
 
         # Preenchendo na primeira execução
         window2['-ML1-' + sg.WRITE_ONLY_KEY].print('\nOS DADOS SALVOS NO BANCO DE DADOS SÃO:\n', text_color='yellow',
@@ -94,3 +101,31 @@ while True:
                 for row in n:
                     window2['-ML1-' + sg.WRITE_ONLY_KEY].print(
                         f'Id: {row[0]:<3} Produto: {row[1]:<20} {letra:>10} {row[2]}', text_color='black')
+
+    if event1 == 'Atualizar registro' and not window3_active:
+        window3_active = True
+        window1.Hide()
+
+        layout3 = [[sg.Text('Atualizar registro', font=('Helvetica', 14), justification='left')],
+                    [sg.Radio('Adcionar', 'loss', default=True, size=(10, 1), font=['Comics', 14]),
+                    sg.Radio('Retirar', 'loss', size=(5, 1), font=['Comics', 14])],
+                    [sg.Text('Quantidade:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADET-')],
+                    [sg.Text('Id:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADE-')],
+                    [sg.Button('Sair', button_color='black on red', font=['Comics', 12]),
+                    sg.Button('Confirma', button_color='black on white', font=['Comics', 12])]]
+
+        window3 = sg.Window('Atualizar registro', layout3, finalize=True, resizable=True)
+
+        atualizar = True
+        while True:
+            event2, values3 = window3.read()
+            if event2 == sg.WIN_CLOSED or event2 == 'Sair':
+                window3.Close()
+                window3_active = False
+                window1.UnHide()
+                break
+
+            if event2 == 'Adcionar':
+                atualizar = True
+            if event2 == 'Retirar':
+                atualizar = False
