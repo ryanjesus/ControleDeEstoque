@@ -19,7 +19,7 @@ layout = [[sg.Text('Nome:', size=(8, 1)), sg.InputText(size=(30, 1), key='-NOME-
           [sg.Button('Ver Registros', button_color='black on white', font=['Comics', 12]),
            sg.Button('Deletar', button_color='black on white', font=['Comics', 12])]]
 
-window1 = sg.Window('Cadastro de Produto', layout, size=(600, 600), resizable=True)
+window1 = sg.Window('Cadastro de Produto', layout, resizable=True, size=(400, 400))
 window2_active = False
 window3_active = False
 
@@ -61,7 +61,7 @@ while True:
                    [sg.MLine(key='-ML1-' + sg.WRITE_ONLY_KEY, size=(80, 15), font='Any 13')],
                    [sg.Button('Sair', button_color='black on red', font=['Comics', 12])]]
 
-        window2 = sg.Window('Ver/Filtrar Registros', layout2, finalize=True, resizable = True)
+        window2 = sg.Window('Ver/Filtrar Registros', layout2, finalize=True, resizable=True)
 
         # Preenchendo na primeira execução
         window2['-ML1-' + sg.WRITE_ONLY_KEY].print('\nOS DADOS SALVOS NO BANCO DE DADOS SÃO:\n', text_color='yellow',
@@ -72,7 +72,7 @@ while True:
             window2['-ML1-' + sg.WRITE_ONLY_KEY].print(
                 f'Id: {row[0]:<3} Produto: {row[1]:<20} {letra:>10} {row[2]}', text_color='black')
 
-        #Laço da segunda janela
+        # Laço da segunda janela
         tipoBusca = True
         while True:
             event2, values2 = window2.read()
@@ -107,30 +107,31 @@ while True:
         window1.Hide()
 
         layout3 = [[sg.Text('Atualizar registro', font=('Helvetica', 14), justification='left')],
-                    [sg.Radio('Adcionar', 'loss', default=True, size=(10, 1), font=['Comics', 14]),
+                   [sg.Radio('Adcionar', 'loss', default=True, size=(10, 1), font=['Comics', 14]),
                     sg.Radio('Retirar', 'loss', size=(5, 1), font=['Comics', 14])],
-                    [sg.Text('Quantidade:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADET-')],
-                    [sg.Text('Id:', size=(8, 1)), sg.InputText(size=(30, 1), key='-ID-')],
-                    [sg.Button('Sair', button_color='black on red', font=['Comics', 12]),
+                   [sg.Text('Quantidade:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADET-')],
+                   [sg.Text('Id:', size=(8, 1)), sg.InputText(size=(30, 1), key='-ID-')],
+                   [sg.Button('Sair', button_color='black on red', font=['Comics', 12]),
                     sg.Button('Confirma', button_color='black on white', font=['Comics', 12])]]
 
         window3 = sg.Window('Atualizar registro', layout3, finalize=True, resizable=True)
 
         atualizar = True
         while True:
-            event2, values3 = window3.read()
-            if event2 == sg.WIN_CLOSED or event2 == 'Sair':
+            event3, values3 = window3.read()
+
+            if event3 == 'Adcionar':
+                atualizar = True
+            if event3 == 'Retirar':
+                atualizar = False
+
+            if event3 == sg.WIN_CLOSED or event3 == 'Sair':
                 window3.Close()
                 window3_active = False
                 window1.UnHide()
                 break
 
-            if event2 == 'Adcionar':
-                atualizar = True
-            if event2 == 'Retirar':
-                atualizar = False
-
-            if event2 == 'Confirma' and atualizar:
+            if event3 == 'Confirma' and atualizar:
                 n1 = values3['-QUANTIDADET-']
                 n2 = values3['-ID-']
                 try:
@@ -141,7 +142,7 @@ while True:
                     print(f'Erro ao gravar os dados:\n{e}')
                     sg.popup(f'{e}')
 
-            if event2 == 'Confirma' and not atualizar:
+            if event3 == 'Confirma' and atualizar == False:
                 n1 = values3['-QUANTIDADET-']
                 n2 = values3['-ID-']
                 try:

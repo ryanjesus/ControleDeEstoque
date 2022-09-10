@@ -36,7 +36,7 @@ class Execucao(SqlManager):
 
     def UpdateSub(self, qtd, onde):
         self.R_conexao_sql()
-        query = f"declare @valor int, @valor1 int; set @valor = (select quantidade from dbo.estoque where id = {onde}); set @valor1 = (@valor - {qtd}); update dbo.estoque set quantidade = @valor1, updateDate = getdate() where id = {onde}"
+        query = f"declare @valor int, @valor1 int; set @valor = (select quantidade from dbo.estoque where id = {onde}); set @valor1 = (@valor - {qtd}); select @valor1; update dbo.estoque set quantidade = @valor1, updateDate = getdate() where id = {onde};"
         self.cursor.execute(query)
         self.cnxn.commit()
         self.DConnection()
