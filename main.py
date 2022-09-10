@@ -107,8 +107,8 @@ while True:
         window1.Hide()
 
         layout3 = [[sg.Text('Atualizar registro', font=('Helvetica', 14), justification='left')],
-                   [sg.Radio('Adcionar', 'loss', default=True, size=(10, 1), font=['Comics', 14]),
-                    sg.Radio('Retirar', 'loss', size=(5, 1), font=['Comics', 14])],
+                   [sg.Radio('Adcionar', 'loss', default=True, size=(10, 1), font=['Comics', 14], key="-IN-"),
+                    sg.Radio('Retirar', 'loss', size=(5, 1), font=['Comics', 14], key="-OUT-")],
                    [sg.Text('Quantidade:', size=(8, 1)), sg.InputText(size=(30, 1), key='-QUANTIDADET-')],
                    [sg.Text('Id:', size=(8, 1)), sg.InputText(size=(30, 1), key='-ID-')],
                    [sg.Button('Sair', button_color='black on red', font=['Comics', 12]),
@@ -120,9 +120,9 @@ while True:
         while True:
             event3, values3 = window3.read()
 
-            if event3 == 'Adcionar':
+            if values3["-IN-"] == True:
                 atualizar = True
-            if event3 == 'Retirar':
+            if values3["-OUT-"] == True:
                 atualizar = False
 
             if event3 == sg.WIN_CLOSED or event3 == 'Sair':
